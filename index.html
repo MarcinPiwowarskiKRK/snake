@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <title>GO! Snake</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -16,6 +16,8 @@
     --grid-line: rgba(36,31,30,0.05);
     --muted: #7a7371;
     --shadow: rgba(36,31,30,0.12);
+    --pad-btn: clamp(42px, 13vw, 54px);
+    --pad-reserve: calc(3 * var(--pad-btn) + 2 * 5px + 28px + env(safe-area-inset-bottom, 0px) + 16px);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -58,6 +60,7 @@
     min-height: 100vh;
     min-height: 100dvh;
     padding: max(10px, 2dvh) 16px 16px;
+    padding-bottom: var(--pad-reserve);
     gap: 0;
     overscroll-behavior-y: contain;
   }
@@ -152,12 +155,19 @@
 
   .pad {
     display: grid;
-    grid-template-columns: repeat(3, clamp(42px, 13vw, 54px));
-    grid-template-rows: repeat(3, clamp(42px, 13vw, 54px));
+    grid-template-columns: repeat(3, var(--pad-btn));
+    grid-template-rows: repeat(3, var(--pad-btn));
     gap: 5px;
-    margin-top: 14px;
-    flex-shrink: 0;
     user-select: none;
+    position: fixed;
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+    transform: translateX(-50%);
+    z-index: 10;
+    background: var(--bg);
+    padding: 8px 8px 2px;
+    border-radius: 18px;
+    box-shadow: 0 -6px 20px var(--shadow);
   }
   .pad button {
     background: var(--panel);
@@ -223,7 +233,7 @@
   <button class="down" data-dir="down" aria-label="Dół">▼</button>
   <button class="right" data-dir="right" aria-label="Prawo">▶</button>
 </div>
-<div class="hint">Strzałki / WASD, przyciski powyżej albo przesuń palcem po planszy</div>
+<div class="hint">Strzałki / WASD, przyciski na dole ekranu albo przesuń palcem po planszy</div>
 
 <footer>
   Nieoficjalna gra fanowska inspirowana stylem GO! Express &amp; Logistics.<br>
